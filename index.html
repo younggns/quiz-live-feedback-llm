@@ -69,6 +69,11 @@
                 })
             });
 
+            if (!response.ok) {
+                const errorData = await response.text();
+                throw new Error(`Server Error (${response.status}): ${errorData}`);
+            }
+
             const data = await response.json();
             
             if (response.ok) {
