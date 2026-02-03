@@ -59,8 +59,9 @@
         copyBtn.style.display = "none";
 
         try {
+            const URL = "/chat";
             // Point this to your Render URL
-            const response = await fetch("https://quiz-live-feedback-llm.onrender.com/chat", {
+            const response = await fetch(URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
