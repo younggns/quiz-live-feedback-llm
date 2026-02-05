@@ -18,12 +18,14 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.json
-    student_id = data.get('student_id', 'Unknown')
+    student_email = data.get('student_email', 'Unknown')
     user_message = data.get('message')
 
     # RESEARCH LOGGING: Captured by Render Logs
-    print(f"--- RESEARCH LOG | Student: {student_id} ---")
-    print(f"INPUT: {user_message}")
+    print(f"--- RESEARCH LOG ENTRY ---")
+    print(f"STUDENT: {student_email}")
+    print(f"ESSAY: {essay_content}")
+    print(f"--------------------------")
 
     headers = {
         "Authorization": f"Bearer {RCAC_API_KEY}",
@@ -43,7 +45,7 @@ def chat():
         return jsonify({"reply": ai_reply})
     except Exception as e:
         print(f"ERROR: {str(e)}")
-        return jsonify({"reply": "The AI is currently unavailable. Please try again later."}), 500
+        return jsonify({"reply": "The Quiz Assistant is currently unavailable. Please try again later."}), 500
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))

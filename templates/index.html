@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Essay Assistant</title>
+    <title>Quiz Assistant</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 10px; margin: 0; }
         .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -11,31 +11,58 @@
         label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; color: #555; }
         input, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
         textarea { height: 120px; resize: vertical; }
-        .btn-group { display: flex; gap: 10px; }
         button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.3s; }
-        .btn-submit { background-color: #007bff; color: white; }
+        .btn-submit { 
+            width: 100%;
+            background-color: #007bff; 
+            color: white; 
+            padding: 12px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s;
+        }
         .btn-submit:hover { background-color: #0056b3; }
-        .btn-copy { background-color: #28a745; color: white; display: none; } /* Hidden until feedback exists */
-        .btn-copy:hover { background-color: #218838; }
+        .btn-submit:disabled { background-color: #ccc; cursor: not-allowed; }
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            display: none; /* Hidden by default */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
         .response-area { margin-top: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #007bff; border-radius: 4px; display: none; }
         .status { font-size: 0.85rem; color: #777; margin-bottom: 10px; }
+        .error { color: #d9534f; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>AI Essay Assistant</h2>
+    <h2>Quiz Assistant</h2>
     
-    <label for="student_id">Purdue Student ID</label>
-    <input type="text" id="student_id" placeholder="e.g. 0012345678">
+    <label for="student_email">Purdue Email Address</label>
+    <input type="text" id="student_email" placeholder="e.g. your-username@purdue.edu">
 
-    <label for="essay_input">Draft your essay here</label>
-    <textarea id="essay_input" placeholder="Type or paste your essay draft..."></textarea>
+    <label for="essay_input">Type below your essay describing your strategy to solve the problem.</label>
+    <textarea id="essay_input" placeholder="I would solve the problem with .."></textarea>
 
-    <div class="btn-group">
-        <button class="btn-submit" onclick="askAI()">Get AI Feedback</button>
-        <button id="copyBtn" class="btn-copy" onclick="copyFeedback()">Copy to Clipboard</button>
-    </div>
+    <button id="submitBtn" class="btn-submit" onclick="askAI()">
+        <span>Get Feedback from Quiz Assistant</span>
+        <div id="loader" class="spinner"></div>
+    </button>
 
     <div id="statusMsg" class="status"></div>
     <div id="responseBox" class="response-area"></div>
@@ -43,20 +70,29 @@
 
 <script>
     async function askAI() {
-        const studentId = document.getElementById('student_id').value;
-        const essayText = document.getElementById('essay_input').value;
+        const studentEmail = document.getElementById('student_email').value.trim();
+        const essayText = document.getElementById('essay_input').value.trim();
         const responseBox = document.getElementById('responseBox');
         const statusMsg = document.getElementById('statusMsg');
-        const copyBtn = document.getElementById('copyBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const loader = document.getElementById('loader');
 
-        if (!studentId || !essayText) {
-            alert("Please provide both your Student ID and an essay draft.");
+        const purdueEmailRegex = /^[a-zA-Z0-9._%+-]+@purdue\.edu$/;
+        if (!studentEmail || !essayText) {
+            alert("Please provide both your Purdue email and an essay draft.");
+            return;
+        }
+        if (!purdueEmailRegex.test(studentEmail)) {
+            statusMsg.innerText = "Error: Please enter a valid @purdue.edu email address.";
+            statusMsg.classList.add('error');
             return;
         }
 
-        statusMsg.innerText = "Processing with AI...";
+        submitBtn.disabled = true;
+        loader.style.display = "block";
+        statusMsg.innerText = "Generating Feedback...";
+        statusMsg.classList.remove('error');
         responseBox.style.display = "none";
-        copyBtn.style.display = "none";
 
         try {
             const URL = "/chat";
@@ -65,7 +101,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    student_id: studentId,
+                    student_email: studentEmail,
                     message: essayText
                 })
             });
@@ -76,34 +112,21 @@
             }
 
             const data = await response.json();
+
+            statusMsg.innerText = "Feedback from Quiz Assistant:";
+            responseBox.innerText = data.reply;
+            responseBox.style.display = "block";
             
-            if (response.ok) {
-                statusMsg.innerText = "AI Feedback Received:";
-                responseBox.innerText = data.reply;
-                responseBox.style.display = "block";
-                copyBtn.style.display = "inline-block";
-            } else {
-                statusMsg.innerText = "Error: " + (data.reply || "Server error");
-            }
         } catch (error) {
-            statusMsg.innerText = "Connection failed. Ensure the server is running.";
+            statusMsg.innerText = "Connection failed. Please try again.";
+            statusMsg.classList.add('error');
             console.error(error);
+        } finally {
+            submitBtn.disabled = false;
+            loader.style.display = "none";
         }
     }
 
-    function copyFeedback() {
-        const feedback = document.getElementById('responseBox').innerText;
-        navigator.clipboard.writeText(feedback).then(() => {
-            const copyBtn = document.getElementById('copyBtn');
-            const originalText = copyBtn.innerText;
-            copyBtn.innerText = "Copied!";
-            copyBtn.style.backgroundColor = "#1e7e34";
-            setTimeout(() => {
-                copyBtn.innerText = originalText;
-                copyBtn.style.backgroundColor = "#28a745";
-            }, 2000);
-        });
-    }
 </script>
 
 </body>
