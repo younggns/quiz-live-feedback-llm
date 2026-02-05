@@ -19,7 +19,7 @@ def index():
 def chat():
     data = request.json
     student_email = data.get('student_email', 'Unknown')
-    user_message = data.get('message')
+    essay_content = data.get('message')
 
     # RESEARCH LOGGING: Captured by Render Logs
     print(f"--- RESEARCH LOG ENTRY ---")
@@ -34,7 +34,7 @@ def chat():
     
     payload = {
         "model": "llama4:latest",
-        "messages": [{"role": "user", "content": user_message}]
+        "messages": [{"role": "user", "content": essay_content}]
     }
 
     try:
