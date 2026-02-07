@@ -4,5 +4,6 @@ requests
 gunicorn
 uvicorn
 asgiref
+gevent
 json_repair
 aiohttp
