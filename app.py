@@ -158,7 +158,9 @@ async def get_single_completion(prompt, model_ckpt="deepseek-r1:70b"):
                     if response.status == 200:
                         data = await response.json()
                         data_str = data['choices'][0]['message']['content']
+                        print(data_str)
                         data_obj = json.loads(repair_json(data_str))
+                        print(data_obj)
                         assert "feedback" in data_obj
                         return data_obj # Returns just the string
                     
