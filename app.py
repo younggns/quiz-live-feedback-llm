@@ -154,6 +154,7 @@ async def get_single_completion(prompt, model_ckpt="deepseek-r1:70b"):
         for attempt in range(MAX_RETRIES):
             try:
                 async with session.post(url, headers=headers, json=body, timeout=REQUEST_TIMEOUT) as response:
+                    print("response", response)
                     # Success case
                     if response.status == 200:
                         data = await response.json()
