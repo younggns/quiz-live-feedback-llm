@@ -157,6 +157,7 @@ async def get_single_completion(prompt, model_ckpt="deepseek-r1:70b"):
                     # Success case
                     if response.status == 200:
                         data = await response.json()
+                        print("response.json()", data)
                         data_str = data['choices'][0]['message']['content']
                         print(data_str)
                         data_obj = json.loads(repair_json(data_str))
@@ -204,12 +205,6 @@ async def chat():
     headers = {
         "Authorization": f"Bearer {RCAC_API_KEY}",
         "Content-Type": "application/json"
-    }
-    
-    payload = {
-        # "model": "llama4:latest",
-        "model": "deepseek-r1:70b",
-        "messages": [{"role": "user", "content": essay_content}]
     }
 
     try:
