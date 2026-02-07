@@ -31,87 +31,87 @@ I will provide you with a physics problem statement and a "Strategy Essay" writt
 ### Few-Shot Examples
 **Example Student Essay1:**
 The horizontal component of the force that the top block exerts on the bottom block includes friction acting between the blocks. There since the bottom block is moving with the bottom block the friction force must be less than the force applied and it must be acting in the opposite way as friction acts in the opposite direction of motion. To find the horizontal component the normal and gravitational force are assumed to be equal. So you have to calculate the friction force between the two blocks.
-**Response:**{
+**Response:**{{
     "classification": "position",
     "feedback": "You were right about friction (that it is the force that the top block exerts on the bottom block). And you even identified its direction (being the opposite of the applied force) correctly. But the question that's left is how to find its magnitude (absolute value)?"
-}
+}}
 
 **Example Student Essay2:**
 To find the horizontal component of the force that the top block exerts on the bottom block, I would first set my system as the block on top and the surroundings as the block on the bottom and the force applied. Knowing that force is equal to mass times accleration, I can set the force on the block above by the block below equal to mass of my system times the acceleration of my system. Therefore, I can se force equal to the mass of the block on top times the force applied divided by the combined masses of both blocks. 
-**Response:**{
+**Response:**{{
     "classification": "direction",
     "feedback": "You described how to find the absolute value of the force correctly. But how would you determine its direction?"
-}
+}}
 
 **Example Student Essay3:**
 As the acceleration of the blocks are the same, we can find the acceleration of both blocks in terms of the horizontal force and the acceleration of the top block in terms of friction. Then, by combining the two equations, we can find friction in terms of the mass of the blocks and the horizontal force. As friction is the only force exerted by the top block to the bottom block, then the horizontal compoenent of force that the top block exerts on the bottom block can be found.
-**Response:**{
+**Response:**{{
     "classification": "direction",
     "feedback": "You were right about the friction force being the force that the top block exerts on the bottom block. And you even found its magnitude correctly. However, you might have overlooked its direction, which is opposite to motion (in the -x direction). Drawing a free-body diagram for each block might have helped."
-}
+}}
 
 **Example Student Essay4:**
 First you need to set up an equation for the force of the two blocks in a system together. Then you need to set up another equation for the force of friction between the top block and bottom block by making the top block the system and the bottom block the surroundings. Since the blocks are moving together, their acceleration is the exact same so you can set the two equations equal to each other to find the force of friction that the top block has on the bottom block.
-**Response:**{
+**Response:**{{
     "classification": "position-direction",
     "feedback": "If you consider the top block as the system and find the friction force that is applied to it by the bottom block, it will be the same in magnitude as the friction force applied to the bottom block by the top block, but with the opposite direction. Also, be careful with the masses of the blocks. It is easy to confuse m1 and m2 when calculating the answer."
-}
+}}
 
 **Example Student Essay5:**
 To find the horizontal component of the force that top block exerts on the bottom block, I would first draw a diagram of the setup and then draw separate freebody diagrams of both blocks and also mark all the forces on each block. Then I would start writing the equation of Newton's Second law of motion to describe the net force acting in the horizontal direction. I would then do the same for the vertical direction and substitute into the first equation. I would also solve for each of the forces and then solve the equation to get my answer.
-**Response:**{
+**Response:**{{
     "classification": "position",
     "feedback": "Drawing a free-body diagram for each block separately was a good idea. This will help you identify the direction of the force to be found correctly. However, be careful with the actual equations (based on Newton Second Law) that you write. Since each block has its own unique mass, each equation will have terms corresponding to that mass. And if you need to perform some algebraic calculations, track which masses cancel out if any."
-}
+}}
 
 **Example Student Essay6:**
 I would first go about this by finding the total mass of the system. Then given the total mass of the system, I know the force and mass, and using Newton's Second Law, I can find the acceleration of the system. After finding the acceleration I can multiply it by the top block, which will then give me the horizontal component of the force that top block exerts on the bottom block. Then I have to note that it is in the left direction, so the final answer would be a negative force value. 
-**Response:**{
+**Response:**{{
     "classification": "correct",
     "feedback": "Solid logic. Just double check your calculations at the end."
-}
+}}
 
 **Example Student Essay7:**
 To find the horizontal component of the force that the top block exerts on the bottom block, you must first find the total acceleration of the system of both blocks by divings the known horizontal force by the combined mass of both blocks. Then multiply this acceleration with the mass of the top block and then make this number negative since its force is acting opposite the motion of the blocks. This is the horizontal component of the force that the top block exerts on the bottom block.
-**Response:**{
+**Response:**{{
     "classification": "correct",
     "feedback": "Great strategy! Now you only need to calculate the result."
-}
+}}
 
 **Example Student Essay8:**
 To find the force that the top block exerts on the bottom block, there must be two clear systems defined: one, that considers both blocks, and one that considers the bottom block.   Since the force is applied to the bottom block only, the top block does not have any force except that of friction which goes in the direction of the motion of the system of blocks.    The second system considers only the force of the bottom block.   The result is the fraction of the initial force on the bottom block, which are proportional to their masses.
-**Response:**{
+**Response:**{{
     "classification": "position-direction",
     "feedback": "You were right on spot about considering two systems to solve this problem: one with both blocks as system, another as the bottom block only. And indeed, when you consider the bottom block and the forces that act on it, the force from the top block which we need to find is proportional to the external force applied. But the key is to determine which mass exactly it is proportional to. The top or the bottom one? Also, don't forget about the direction of that force."
-}
+}}
 
 **Example Student Essay9:**
 I would find the  the net force of the system when it is both blocks, and solve for acceleration. Then I would find the net force of the system when it is only the top block, using the acceleration found before I would replace it in this new net force equation. So this equation should consist of the blocks mass on top multiplied by the force applied then divided by the sum of the two blocks. This will then solve for the horizontal component of the force that the top block exerts onthe bottom block.
-**Response:**{
+**Response:**{{
     "classification": "position-direction",
     "feedback": "You are right on spot! But be careful with the masses here, it is easy to swap their values in calculations. Also, what can you say about the direction of the force that you found?"
-}
+}}
 
 **Example Student Essay10:**
 The strategy that I would use to find the horizontal component of the force the top block exerts on the bottom block is I would first define my ssytem as both blocks. Then I would redefine my system as just bottom block because a force acting on that block is what we are trying to solve for. Then I would substitute the acceleration in the second system using the first system because all of the blocks and system are accelerating at the same rate. Then I would be able to solve for the force on the bottom blok by the top block.
-**Response:**{
+**Response:**{{
     "classification": "position",
     "feedback": "What you described will yield only the net force on the bottom block. But the question asked for the force exerted on the bottom block by the top block specifically. This force is a part of the force you found but there is another part, which the applied force."
-}
+}}
 
 **Example Student Essay11:**
 First I would determine the net forces when the two blocks are part of the system and the surroundings are just the earth. Then I would repeat the process with only block m2 being the system and m1 and the earth being the surroundings. I am aware that they move together which means acceleration is the same for both blocks. Then solving the first equation for acceleration and plugging it in the second would help me determine the force m2 exerts on m1.
-**Response:**{
+**Response:**{{
     "classification": "direction",
     "feedback": "Since you selected the bottom block m2 as the system, you found the force that the block m1 exerts on it. However, the question asked for the force that m2 exerts on m1, which is the same in magnitude but opposite in direction."
-}
+}}
 
 **Example Student Essay12:**
 You would first find the net horizontal force of the first block on top of the other one. Then you find the free body diagram of horizontal forces acting on the second block below the top one. You then equate the reaction force of the friction, the applied force, then substitute the force of friction for the one found for the first block because they are equal. Then you solve for Force of friction because this is the only horizontal component the top block exerts on the bottom block. 
-**Response:**{
+**Response:**{{
     "classification": "correct",
     "feedback": "Excellent strategy!"
-}
+}}
 
 ### TEST CASE
 <quiz_problem>
