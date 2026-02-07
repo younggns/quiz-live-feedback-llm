@@ -14,7 +14,7 @@ CORS(app)
 RCAC_API_KEY = os.environ.get('RCAC_API_KEY')
 RCAC_URL = "https://genai.rcac.purdue.edu/api/chat/completions"
 
-PROMPT = """<system_prompt>
+PROMPT = f"""<system_prompt>
 You are an expert Physics Education Researcher and Cognitive Scientist. Your goal is to analyze student essays describing their strategy for solving a problem. You must determine if the student's proposed strategy will lead to the Correct Answer or a specific type of Misconception.
 </system_prompt>
 <user_prompt>
@@ -125,10 +125,10 @@ Describe in WORDS the strategy you would use to find the horizontal component of
 Analyze the "Student Essay" above and provide the JSON output.
 ### OUTPUT FORMAT
 {{
-"classification": Choose one from ['correct', 'direction', 'position', 'position-direction'],
-"confidence": How confident the classification is (scale of 1 to 5, 5 being most confident),
-"secondary_classification": What would be the second most likely label?
-"feedback": Feedback message (in 50 words) to students based on their essay. If their essay is classified to make a certain type of mistake, the feedback should highlight that aspect. If it is classified as correct, the feedback can be general and notify some common mistakes that can be made.
+    "classification": Choose one from ['correct', 'direction', 'position', 'position-direction'],
+    "confidence": How confident the classification is (scale of 1 to 5, 5 being most confident),
+    "secondary_classification": What would be the second most likely label?
+    "feedback": Feedback message (in 50 words) to students based on their essay. If their essay is classified to make a certain type of mistake, the feedback should highlight that aspect. If it is classified as correct, the feedback can be general and notify some common mistakes that can be made.
 }}
 ### Constraint
 - Output ONLY the json.
@@ -154,15 +154,11 @@ async def get_single_completion(prompt, model_ckpt="deepseek-r1:70b"):
         for attempt in range(MAX_RETRIES):
             try:
                 async with session.post(url, headers=headers, json=body, timeout=REQUEST_TIMEOUT) as response:
-                    print("response", response)
                     # Success case
                     if response.status == 200:
                         data = await response.json()
-                        print("response.json()", data)
                         data_str = data['choices'][0]['message']['content']
-                        print(data_str)
                         data_obj = json.loads(repair_json(data_str))
-                        print(data_obj)
                         assert "feedback" in data_obj
                         return data_obj # Returns just the string
                     
