@@ -188,7 +188,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/chat', methods=['POST'])
-def chat():
+async def chat():
     data = request.json
     student_email = data.get('student_email', 'Unknown')
     essay_content = data.get('message')
