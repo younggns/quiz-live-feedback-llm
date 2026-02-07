@@ -198,7 +198,6 @@ async def chat():
     print(f"--- RESEARCH LOG ENTRY ---")
     print(f"STUDENT: {student_email}")
     print(f"ESSAY: {essay_content}")
-    print(f"--------------------------")
 
     headers = {
         "Authorization": f"Bearer {RCAC_API_KEY}",
