@@ -14,7 +14,7 @@ CORS(app)
 RCAC_API_KEY = os.environ.get('RCAC_API_KEY')
 RCAC_URL = "https://genai.rcac.purdue.edu/api/chat/completions"
 
-PROMPT = f"""<system_prompt>
+PROMPT = """<system_prompt>
 You are an expert Physics Education Researcher and Cognitive Scientist. Your goal is to analyze student essays describing their strategy for solving a problem. You must determine if the student's proposed strategy will lead to the Correct Answer or a specific type of Misconception.
 </system_prompt>
 <user_prompt>
