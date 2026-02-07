@@ -7,10 +7,12 @@ from flask import Flask, request, jsonify, render_template
 from json_repair import repair_json
 from flask_cors import CORS
 import requests
+from asgiref.wsgi import WsgiToAsgi
 
 app = Flask(__name__)
 # Replace with your actual IFrame host URL once deployed
-CORS(app) 
+# CORS(app) 
+asgi_app = WsgiToAsgi(app)
 
 RCAC_API_KEY = os.environ.get('RCAC_API_KEY')
 RCAC_URL = "https://genai.rcac.purdue.edu/api/chat/completions"
