@@ -1,4 +1,4 @@
-flask
+Flask[async]==3.0.0
 flask-cors
 requests
 gunicorn
